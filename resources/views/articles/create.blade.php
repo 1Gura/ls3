@@ -5,7 +5,7 @@
             Создание задачи
         </h3>
         @include('errors')
-        <form method="post" action="/tasks">
+        <form method="post" action="/articles">
             @csrf
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Название задачи</label>

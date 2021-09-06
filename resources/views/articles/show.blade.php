@@ -8,8 +8,8 @@
     <title>Задача</title>
 </head>
 <body>
-<h1>{{$task->title}}</h1>
-<p>{{$task->body}}</p>
-<a href="/tasks">Вернуться</a>
+<h1>{{$article->title}}</h1>
+<p>{{$article->body}}</p>
+<a href="/">Вернуться</a>
 </body>
 </html>

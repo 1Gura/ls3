@@ -1,18 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Task;
-use App\Http\Controllers\TasksController;
-
-Route::get('/tasks', [TasksController::class, 'index']);
-Route::get('/tasks/create', [TasksController::class, 'create']);
-Route::get('/tasks/{task}', [TasksController::class, 'show']);
-Route::post('/tasks', [TasksController::class, 'store']);
+use App\Models\Article;
+use App\Http\Controllers\ArticlesController;
+Route::get('/', [ArticlesController::class, 'index']);
 Route::get('/about', function () {
-    return view('about');
+    return view('components.about');
 });
 
-Route::get('/', function () {
-   return view('welcome');
+Route::get('/contacts', function () {
+    return view('components.contacts');
 });
+//Route::get('/articles', [ArticlesController::class, 'index']);
+Route::get('/articles/create', [ArticlesController::class, 'create']);
+Route::get('/articles/feedback', [ArticlesController::class, 'feedback']);
+Route::get('/articles/{slug}', [ArticlesController::class, 'show']);
+Route::post('/articles', [ArticlesController::class, 'store']);
+
+
+
+
 
