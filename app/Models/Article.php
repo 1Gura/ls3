@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Quardian
 {
     use HasFactory;
-
     public static function completed()
     {
         return static::where('completed', 1)->get();

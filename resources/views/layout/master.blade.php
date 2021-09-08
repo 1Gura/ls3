@@ -25,7 +25,9 @@
 @include('layout.nav')
 <main class="container">
     <div class="row">
-        @yield('content')
+        <div class="content">
+            @yield('content')
+        </div>
         @include('layout.sidebar')
     </div>
 </main>

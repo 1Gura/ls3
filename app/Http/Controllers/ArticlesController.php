@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-
+use phpDocumentor\Reflection\Types\Boolean;
 
 class ArticlesController extends Controller
 {
@@ -32,17 +34,20 @@ class ArticlesController extends Controller
     public function store()
     {
         $this->validate(\request(), [
-            'title' => 'required|min:5',
-            'body' => 'required'
+            'symbol_code'=> array('required','max:100','regex:/[a-z 0-9 _ -]+/i'),
+            'title' => array('required', 'min:5', 'max:100'),
+            'description' => array('required','max:255'),
+            'body' => array('required')
         ]);
-
         $id = optional(Article::latest()->first())->id;
         Article::create(
             array(
+                'symbol_code' => request('symbol_code'),
                 'title' => request('title'),
+                'description' => request('description'),
                 'body' => request('body'),
+                'completed' => request('completed') === "on",
                 'slug' => Str::slug(request("title") . ($id !== null ? $id : ""))));
-
         return redirect('/');
     }
 
