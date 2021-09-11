@@ -8,6 +8,9 @@
             Создание задачи
         </h3>
         @include('errors')
+        @if(!empty($_GET['codeError']))
+            <div class="alert-danger">Статья с таким кодом уже есть</div>
+        @endif
         <form method="post" action="/articles">
             @csrf
             <div class="mb-3">

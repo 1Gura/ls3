@@ -10,6 +10,7 @@ Route::get('/about', function () {
 });
 
 //Route::get('/articles', [ArticlesController::class, 'index']);
+Route::post('/articles', [ArticlesController::class, 'store']);
 Route::get('/articles/create', [ArticlesController::class, 'create']);
 Route::get('/articles/feedback', [ArticlesController::class, 'feedback']);
 Route::get('/articles/{slug}', [ArticlesController::class, 'show']);
@@ -20,7 +21,6 @@ Route::get('/admin/feedback', function () {
     $feedbackList = Contact::latest()->get();
     return view('admin.feedback', compact('feedbackList'));
 });
-Route::post('/articles', [ArticlesController::class, 'store']);
 Route::get('/contacts', function () {
     return view('contacts.index');
 });

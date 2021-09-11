@@ -20,7 +20,7 @@ class ArticlesController extends Controller
     public function show(string $slug): View
     {
 
-        $article = Article::where('slug',$slug)->firstOrFail();
+        $article = Article::where('slug', $slug)->firstOrFail();
 
         return view('articles.show', compact('article'));
 
@@ -33,10 +33,14 @@ class ArticlesController extends Controller
 
     public function store()
     {
+        $symbolCode = Article::where('symbol_code', request('symbol_code'))->get();
+        if(count($symbolCode)) {
+            return redirect('articles/create/?codeError=1');
+        }
         $this->validate(request(), [
-            'symbol_code'=> array('required','max:100','regex:/[a-z 0-9 _ -]+/i'),
+            'symbol_code' => array('required', 'max:100', 'regex:/^[a-z0-9_-]+$/i'),
             'title' => array('required', 'min:5', 'max:100'),
-            'description' => array('required','max:255'),
+            'description' => array('required', 'max:255'),
             'body' => array('required')
         ]);
         $id = optional(Article::latest()->first())->id;
