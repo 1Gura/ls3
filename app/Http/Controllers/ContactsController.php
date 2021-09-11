@@ -21,10 +21,9 @@ class ContactsController extends Controller
             ),
             'message' => array('required', 'min:5', 'max:500'),
         ]);
-        Contact::create(array(
-            'email' => request('email'),
-            'message' => request('message'),
-        ));
+        Contact::create(
+            request()->all(),
+        );
         return redirect('/');
     }
 }

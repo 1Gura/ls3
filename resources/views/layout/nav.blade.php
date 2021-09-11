@@ -28,8 +28,7 @@
             <a class="p-2 link-secondary" href="/about">О нас</a>
             <a class="p-2 link-secondary" href="/contacts">Контакты</a>
             <a class="p-2 link-secondary" href="/articles/create">Создать статью</a>
-            <a class="p-2 link-secondary" href="/articles/feedback">Обратная связь</a>
-            <a class="p-2 link-secondary" href="#">Админ раздел</a>
+            <a class="p-2 link-secondary" href="/admin">Админ раздел</a>
 
         </nav>
     </div>

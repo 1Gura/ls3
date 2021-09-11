@@ -1,4 +1,7 @@
 @extends('layout.master')
+@section('title')
+    Статья
+@endsection
 @section('content')
     <div class="article-item">
         <h1>{{$article->title}}</h1>

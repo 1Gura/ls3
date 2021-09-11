@@ -1,8 +1,10 @@
 @extends('layout.master')
+@section('title')
+   Контакты
+@endsection
 @section('content')
 <div class="contacts">
     <h1>Контакты</h1>
-    @include('errors')
     <form method="post" action="/contacts">
         @csrf
         <div class="mb-3">

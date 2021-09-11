@@ -1,4 +1,8 @@
 @extends('layout.master')
+@section('title')
+
+    Главная
+@endsection
 @section('content')
     <div class="list-task">
         <h3>Список задач</h3>
