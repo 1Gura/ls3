@@ -33,7 +33,7 @@ class ArticlesController extends Controller
 
     public function store()
     {
-        $this->validate(\request(), [
+        $this->validate(request(), [
             'symbol_code'=> array('required','max:100','regex:/[a-z 0-9 _ -]+/i'),
             'title' => array('required', 'min:5', 'max:100'),
             'description' => array('required','max:255'),
