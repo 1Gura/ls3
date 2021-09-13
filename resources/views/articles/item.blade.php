@@ -1,6 +1,6 @@
 <li>
     <h3>
-        <a href="articles/{{$article->slug}}">
+        <a href="{{route('articles.show', ['article'=> $article->id])}}">
             {{$article->title}}
         </a>
     </h3>

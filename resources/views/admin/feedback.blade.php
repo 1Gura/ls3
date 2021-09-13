@@ -1,7 +1,5 @@
 @extends('layout.master')
-@section('title')
-    Обратная связь
-@endsection
+@section('title', 'Обратная связь')
 @section('content')
     <div class="feedback">
         <h3>Обратная связь</h3>
