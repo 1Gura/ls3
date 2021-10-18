@@ -5,6 +5,6 @@
         <h1>{{$article->title}}</h1>
         <p>Дата публикации: {{$article->created_at->format('d.m.Y')}}</p>
         <p>{{$article->body}}</p>
-        <a href="{{url()->previous()}}">Вернуться</a>
+        <a href="{{route('main.page')}}">Вернуться</a>
     </div>
 @endsection

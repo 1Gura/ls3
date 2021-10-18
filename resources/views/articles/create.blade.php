@@ -12,15 +12,6 @@
         <form method="post" action="/articles">
             @csrf
             <div class="mb-3">
-                <label for="symbol" class="form-label">Уникальный символьный код</label>
-                <input type="text"
-                       name="symbol_code"
-                       class="form-control"
-                       value="{{old('symbol_code')}}"
-                       id="symbol"
-                       placeholder="Введите код">
-            </div>
-            <div class="mb-3">
                 <label for="title" class="form-label">Название статьи</label>
                 <input
                     type="text"

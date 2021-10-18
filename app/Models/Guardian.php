@@ -10,7 +10,6 @@ class Guardian extends Model
 {
 //    public $quarded = [];
     public $fillable = [
-        'symbol_code',
         'title',
         'description',
         'body',
