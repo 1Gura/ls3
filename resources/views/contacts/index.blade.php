@@ -3,7 +3,7 @@
 @section('content')
     <div class="contacts">
         <h1>Контакты</h1>
-        <form method="post" action="/contacts">
+        <form method="post" action="{{route('contacts.store')}}">
             @csrf
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>

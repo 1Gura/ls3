@@ -9,7 +9,7 @@
         @if(!empty($_GET['codeError']))
             <div class="alert-danger">Статья с таким кодом уже есть</div>
         @endif
-        <form method="post" action="/articles">
+        <form method="post" action="{{route('articles.store')}}">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Название статьи</label>

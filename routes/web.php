@@ -13,7 +13,7 @@ Route::get('/about', function () {
 Route::post('/articles', [ArticlesController::class, 'store'])->name('articles.store');
 Route::get('/articles/create', [ArticlesController::class, 'create'])->name('articles.create');
 Route::get('/articles/feedback', [ArticlesController::class, 'feedback'])->name('articles.feedback');
-Route::get('/articles/{article:slug}', [ArticlesController::class, 'show'])->name('articles.show');
+Route::get('/articles/{article}', [ArticlesController::class, 'show'])->name('articles.show');
 Route::get('/admin/', function () {
     return view('admin.index');
 })->name('admin');
