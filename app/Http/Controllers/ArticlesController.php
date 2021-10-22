@@ -15,7 +15,7 @@ class ArticlesController extends Controller
     public function index(): View
     {
         $articles = Article::latest()->get();
-        return view('welcome', compact('articles'));
+        return view('articles.index', compact('articles'));
     }
 
     public function show(Article $article): View
@@ -28,14 +28,22 @@ class ArticlesController extends Controller
         return view('articles.edit', compact('article'));
     }
 
-    public function update(Article $article)
+    public function update(Article $article): Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
-
+        $body = request()->validate([
+            'title' => ['required', 'min:5', 'max:100'],
+            'description' => ['required', 'max:255'],
+            'body' => ['required'],
+            'completed' => [],
+        ]);
+        $article->update($body);
+        return redirect('/articles');
     }
 
-    public function delete(Article $article)
+    public function destroy(Article $article): Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
-
+        $article->delete();
+        return redirect('/articles');
     }
 
     public function create(): View

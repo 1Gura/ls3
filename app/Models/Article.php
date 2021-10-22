@@ -11,7 +11,7 @@ class Article extends Guardian
     use HasFactory;
     use Sluggable;
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
@@ -20,7 +20,6 @@ class Article extends Guardian
     {
         return static::where('completed', 1)->get();
     }
-
 
     public function sluggable(): array
     {

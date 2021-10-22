@@ -1,10 +1,11 @@
 @extends('layout.master')
-@section('title', 'Главная')
 @section('content')
-    <div class="list-task">
-        <h3>Список задач</h3>
-        @foreach ($tasks as $task)
-            @include('tasks.item')
-        @endforeach
+    <div class="main-content">
+        <h1>Список статей</h1>
+        <ul class="list-articles">
+            @foreach ($articles as $article)
+                @include('articles.item')
+            @endforeach
+        </ul>
     </div>
 @endsection

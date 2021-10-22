@@ -24,7 +24,7 @@
 <div class="container">
     <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex">
-            <a class="p-2 link-secondary" href="{{route('main.page')}}">Главная</a>
+            <a class="p-2 link-secondary" href="{{route('articles.index')}}">Главная</a>
             <a class="p-2 link-secondary" href="{{route('about')}}">О нас</a>
             <a class="p-2 link-secondary" href="{{route('contacts.index')}}">Контакты</a>
             <a class="p-2 link-secondary" href="{{route('articles.create')}}">Создать статью</a>
