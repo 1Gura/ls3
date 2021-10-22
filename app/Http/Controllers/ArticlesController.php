@@ -23,14 +23,29 @@ class ArticlesController extends Controller
         return view('articles.show', compact('article'));
     }
 
+    public function edit(Article $article): View
+    {
+        return view('articles.edit', compact('article'));
+    }
+
+    public function update(Article $article)
+    {
+
+    }
+
+    public function delete(Article $article)
+    {
+
+    }
+
     public function create(): View
     {
         return view('articles.create');
     }
 
-    public function store()
+    public function store(): Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
-        $body = $this->validate(request(), [
+        $body = request()->validate([
             'title' => ['required', 'min:5', 'max:100'],
             'description' => ['required', 'max:255'],
             'body' => ['required'],
