@@ -29,4 +29,9 @@ class Article extends Guardian
             ]
         ];
     }
+
+    public function steps(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Step::class);
+    }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\ContactsController;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\StepController;
 
 /*
  * GET/tasks (index)
@@ -18,7 +19,7 @@ use App\Http\Controllers\ArticlesController;
 
 Route::resource('/articles', ArticlesController::class);
 Route::resource('/contacts', ContactsController::class);
-
+Route::resource('/steps', StepController::class);
 Route::get('/', [ArticlesController::class, 'index'])->name('index');
 
 Route::get('/about', function () {
