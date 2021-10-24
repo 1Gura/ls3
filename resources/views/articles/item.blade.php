@@ -11,6 +11,7 @@
         @method('DELETE')
         <button type="submit" class="btn-danger">Удалить</button>
     </form>
+    @include('articles.tags', ['tags' => $article->tags])
     <p>{{$article->body}}</p>
     <p>Дата публикации: {{$article->created_at->format('d.m.Y')}}</p>
 </li>

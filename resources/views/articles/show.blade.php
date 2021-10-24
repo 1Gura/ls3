@@ -5,6 +5,7 @@
         <h1>{{$article->title}}</h1>
         <p>Дата публикации: {{$article->created_at->format('d.m.Y')}}</p>
         <p>{{$article->description}}</p>
+        @include('articles.tags', ['tags' => $article->tags])
         <p>{{$article->body}}</p>
         @if($article->steps->isNotEmpty())
             <ul class="list-group">

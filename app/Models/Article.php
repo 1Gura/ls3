@@ -5,6 +5,8 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use \Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Article extends Guardian
 {
@@ -30,7 +32,12 @@ class Article extends Guardian
         ];
     }
 
-    public function steps(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function steps(): HasMany
     {
         return $this->hasMany(Step::class);
     }

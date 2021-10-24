@@ -41,6 +41,14 @@
                 >{{old('body', $article->body)}}</textarea>
             </div>
             <div class="mb-3">
+                <label for="body" class="form-label">Теги</label>
+                <input type="text"
+                       name="tags"
+                       class="form-control"
+                       value="{{old('tags', $article->tags->pluck('name')->implode(','))}}"
+                >
+            </div>
+            <div class="mb-3">
                 <label for="completed" class="form-label">Опубликовано</label>
                 <input
                     type="checkbox"

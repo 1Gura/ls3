@@ -3,18 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Step;
+use App\Models\Tag;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use phpDocumentor\Reflection\Types\Boolean;
+use Ramsey\Collection\Collection;
 use Symfony\Component\Console\Input\Input;
 
 class ArticlesController extends Controller
 {
     public function index(): View
     {
-        $articles = Article::latest()->get();
+        $articles = Article::with('tags')->latest()->get();
+        $tagsCloud = collect();
         return view('articles.index', compact('articles'));
     }
 
@@ -37,6 +41,17 @@ class ArticlesController extends Controller
             'completed' => [],
         ]);
         $article->update($body);
+        $articleTags = $article->tags->keyBy('name');
+        $tags = collect(explode(',', request('tags')))->keyBy(function ($item) {
+            return $item;
+        });
+        $syncIds = $articleTags->intersectByKeys($tags)->pluck('id')->toArray();
+        $tagsToAttach = $tags->diffKeys($articleTags);
+        foreach ($tagsToAttach as $tag) {
+            $tag = Tag::firstOrCreate(['name'=>$tag]);
+            $syncIds[] = $tag->id;
+        }
+        $article->tags()->sync($syncIds);
         return redirect('/articles');
     }
 
