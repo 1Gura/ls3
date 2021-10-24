@@ -32,9 +32,9 @@ class StepController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         request()->validate([
             'description' => ['required', 'max:50'],
@@ -70,9 +70,9 @@ class StepController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Step $step
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Step $step)
+    public function update(Request $request, Step $step): \Illuminate\Http\RedirectResponse
     {
         $step->update(['completed' => $request->has('completed')]);
         return back();

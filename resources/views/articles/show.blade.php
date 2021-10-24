@@ -43,6 +43,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Добавить шаг</button>
         </form>
+        @include('errors')
         <a href="{{route('articles.index')}}">Вернуться</a>
     </div>
 @endsection
