@@ -37,12 +37,15 @@ class ArticlesController extends Controller
             'completed' => [],
         ]);
         $article->update($body);
+        session()->flash('flash_message', 'Вы успешно отредактировали статью');
+
         return redirect('/articles');
     }
 
     public function destroy(Article $article): Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
         $article->delete();
+        session()->flash('flash_message', 'Вы успешно удалили статью');
         return redirect('/articles');
     }
 
@@ -60,6 +63,7 @@ class ArticlesController extends Controller
             'completed' => [],
         ]);
         Article::create($body);
+        session()->flash('flash_message', 'Вы успешно создали статью');
         return redirect('/');
     }
 
