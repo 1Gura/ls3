@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\FormRequest;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
@@ -30,12 +31,7 @@ class ArticlesController extends Controller
 
     public function update(Article $article): Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
-        $body = request()->validate([
-            'title' => ['required', 'min:5', 'max:100'],
-            'description' => ['required', 'max:255'],
-            'body' => ['required'],
-            'completed' => [],
-        ]);
+        $body = $this->workWithArticle();
         $article->update($body);
         session()->flash('flash_message', 'Вы успешно отредактировали статью');
 
@@ -56,12 +52,7 @@ class ArticlesController extends Controller
 
     public function store(): Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
-        $body = request()->validate([
-            'title' => ['required', 'min:5', 'max:100'],
-            'description' => ['required', 'max:255'],
-            'body' => ['required'],
-            'completed' => [],
-        ]);
+        $body = $this->workWithArticle();
         Article::create($body);
         session()->flash('flash_message', 'Вы успешно создали статью');
         return redirect('/');
@@ -70,5 +61,12 @@ class ArticlesController extends Controller
     public function feedback(): View
     {
         return view('articles.feedback');
+    }
+
+    private function workWithArticle(): array
+    {
+        $body = FormRequest::validateForm();
+        isset($body['completed']) ? $body['completed'] = true : $body['completed'] = false;
+        return $body;
     }
 }
