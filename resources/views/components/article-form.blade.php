@@ -4,7 +4,7 @@
         <h3 class="pb-3 mb-4 font-italic border-bottom">
             Создание задачи
         </h3>
-        
+
         @include('errors')
         @if(!empty($_GET['codeError']))
             <div class="alert-danger">Статья с таким кодом уже есть</div>
@@ -45,7 +45,7 @@
                     type="checkbox"
                     id="completed"
                     name="completed"
-                    @if(old('completed') === 'on')
+                    @if($article->completed == 1)
                     checked
                     @endif
                 >
