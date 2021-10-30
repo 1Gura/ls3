@@ -17,8 +17,10 @@ use App\Http\Controllers\ArticlesController;
  * */
 
 Route::resource('/articles', ArticlesController::class);
-Route::resource('/contacts', ContactsController::class);
-
+Route::get('/contacts', function () {
+    return view('contacts.index');
+})->name('contacts.index');
+Route::post('/contacts', [ContactsController::class, 'store'])->name('contacts.store');
 Route::get('/', [ArticlesController::class, 'index'])->name('index');
 
 Route::get('/about', function () {

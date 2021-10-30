@@ -1,3 +1,3 @@
 @extends('layout.master')
 @section('title', 'Создание статьи')
-@include('components.article-form')
+<x-article-form :method="'POST" :article = "null"/>

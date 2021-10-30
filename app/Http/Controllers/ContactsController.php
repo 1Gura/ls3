@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use Illuminate\View\View;
 
@@ -12,16 +13,9 @@ class ContactsController extends Controller
         return view('contacts.index');
     }
 
-    public function store()
+    public function store(ContactRequest $request)
     {
-        $body = $this->validate(request(), [
-            'email' => [
-                'required',
-                'regex:/^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i'
-            ],
-            'message' => ['required', 'min:5', 'max:500'],
-        ]);
-        Contact::create($body);
-        return redirect('/');
+        Contact::create($request->all());
+        return redirect(route('contacts.index'));
     }
 }
