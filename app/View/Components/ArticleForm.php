@@ -17,7 +17,6 @@ class ArticleForm extends Component
 
     public function __construct($method, $article = null)
     {
-        dd($method, $article);
         $this->method = $method;
         $this->article = $article;
     }

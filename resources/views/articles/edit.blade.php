@@ -1,4 +1,6 @@
 @extends('layout.master')
 @section('title', 'Создание статьи')
-@include('components.article-form', ['article'=>$article, 'method'=>'PATCH'])
+@section('content')
+    <x-article-form :method="'PATCH'" :article="$article"/>
+@endsection
 
