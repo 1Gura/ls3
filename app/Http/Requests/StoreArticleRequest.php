@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 class StoreArticleRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class StoreArticleRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -26,7 +27,16 @@ class StoreArticleRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+
+    public function prepareForValidation(): array
+    {
+        $this->merge([
+            'completed' => $this->completed ? 1 : 0
+        ]);
+    }
+
+
+    public function rules(): array
     {
         return [
             'title' => ['required', 'min:5', 'max:100'],

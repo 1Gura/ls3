@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArticleRequest;
 use App\Models\Article;
-use App\Models\FormRequest;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
-use phpDocumentor\Reflection\Types\Boolean;
-use Symfony\Component\Console\Input\Input;
 
 class ArticlesController extends Controller
 {
@@ -31,10 +27,10 @@ class ArticlesController extends Controller
         return view('articles.edit', compact('article'));
     }
 
-    public function update(Article $article, StoreArticleRequest $request)
+    public function update(Article $article, StoreArticleRequest $request): Redirector|Application|RedirectResponse
     {
-        $request = $this->completed($request);
-        $article->update($request->all());
+        $params = $request->validated();
+        $article->update($params);
         session()->flash('flash_message', 'Вы успешно отредактировали статью');
         return redirect(route('articles.index'));
     }
@@ -51,32 +47,16 @@ class ArticlesController extends Controller
         return view('articles.create');
     }
 
-    public function store(StoreArticleRequest $request)
+    public function store(StoreArticleRequest $request): Redirector|Application|RedirectResponse
     {
-        $request = $this->completed($request);
-        Article::create($request->all());
+        $params = $request->validated();
+        Article::create($params);
         session()->flash('flash_message', 'Вы успешно создали статью');
         return redirect(route('articles.index'));
-    }
-
-    public function completed(StoreArticleRequest $request): StoreArticleRequest
-    {
-        if (($request['completed'])) {
-            $request['completed'] = 1;
-        } else {
-            $request['completed'] = 0;
-        }
-        return $request;
     }
 
     public function incomplete(Article $article)
     {
 
     }
-
-    public function feedback(): View
-    {
-        return view('articles.feedback');
-    }
-
 }
