@@ -3,6 +3,7 @@
 @section('content')
     <div class="contacts">
         <h1>Контакты</h1>
+        @include('errors')
         <form method="post" action="{{route('contacts.store')}}">
             @csrf
             <div class="mb-3">

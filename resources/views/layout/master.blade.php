@@ -32,5 +32,13 @@
     </div>
 </main>
 @include('layout.footer')
+<script>
+    const alert = document.querySelector('.alert');
+    if (alert) {
+        setTimeout(() => {
+            alert.classList.add('hidden');
+        }, 3000);
+    }
+</script>
 </body>
 </html>
