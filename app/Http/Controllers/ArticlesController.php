@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticleRequest;
 use App\Models\Article;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
@@ -17,7 +18,7 @@ class ArticlesController extends Controller
         return view('articles.index', compact('articles'));
     }
 
-    public function show(Article $article): View
+    public function show(Article $article, Filesystem $fileSystem): View
     {
         return view('articles.show', compact('article'));
     }
