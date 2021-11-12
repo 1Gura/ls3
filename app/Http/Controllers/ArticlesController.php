@@ -18,7 +18,7 @@ class ArticlesController extends Controller
         return view('articles.index', compact('articles'));
     }
 
-    public function show(Article $article, Filesystem $fileSystem): View
+    public function show(Article $article): View
     {
         return view('articles.show', compact('article'));
     }

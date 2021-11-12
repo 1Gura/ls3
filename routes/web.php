@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\TestController;
+use App\Http\Middleware\CustomAuthenticate;
 use App\Models\Contact;
+use App\PriceFormatter;
+use App\Service\OtherPriceFormatter;
+use App\Service\PushAll;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
 
@@ -15,18 +20,6 @@ use App\Http\Controllers\ArticlesController;
  * PATCH/tasks/:id (update) чаще юзают
  * DELETE/tasks/:id (delete)
  * */
-
-app()->bind(\App\PriceFormatter::class, function() {
-    return new \App\Service\OtherPriceFormatter();
-});
-
-app()->singleton(\App\Service\PushAll::class, function () {
-    return new \App\Service\PushAll('private-key');
-});
-
-Route::get('/test', function (\App\PriceFormatter $formatter) {
-    dd($formatter->format(10000));
-});
 
 Route::resource('/articles', ArticlesController::class);
 Route::get('/contacts', function () {
