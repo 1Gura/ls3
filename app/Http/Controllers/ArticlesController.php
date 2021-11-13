@@ -33,9 +33,17 @@ class ArticlesController extends Controller
     {
         $params = $request->validated();
         $article->update($params);
-//        $articleTags = $article->tags->keyBy('name');
-//        $tagsRequest = $request;
-//        dd($tagsRequest);
+        $articleTags = $article->tags->keyBy('name');
+        $tagsRequest = collect(explode(',', $request->tags))->keyBy(function ($item) {
+            return $item;
+        });
+        $syncIds = $articleTags->intersectByKeys($tagsRequest)->pluck('id')->toArray();
+        $tagsToAttach = $tagsRequest->diffKeys($articleTags);
+        foreach ($tagsToAttach as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+            $syncIds[] = $tag->id;
+        }
+        $article->tags()->sync($syncIds);
         session()->flash('flash_message', 'Вы успешно отредактировали статью');
         return redirect(route('articles.index'));
     }

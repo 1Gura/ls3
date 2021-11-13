@@ -6,7 +6,6 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.87.0">
-{{--    <title>@yield('title', 'Главная')</title>--}}
     <title>{{config('app.name','Сайт')}}</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/blog/">
 

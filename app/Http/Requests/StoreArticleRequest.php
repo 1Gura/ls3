@@ -22,13 +22,8 @@ class StoreArticleRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
 
-    public function prepareForValidation(): array
+    public function prepareForValidation(): void
     {
         $this->merge([
             'completed' => $this->completed ? 1 : 0

@@ -45,7 +45,7 @@
                 class="form-control"
                 id="inputTags"
                 name="tags"
-                value="{{old('tags', isset($article) ? $article->tags->pluck('name')->implode(', ') : '')}}"
+                value="{{old('tags', isset($article) ? $article->tags->pluck('name')->implode(',') : '')}}"
             >
         </div>
         <div class="mb-3">
@@ -61,7 +61,7 @@
         </div>
         <button type="submit" class="btn btn-primary">
             @if(isset($article))
-                Редиктировать
+                Редактировать
             @else
                 Создать
             @endif
