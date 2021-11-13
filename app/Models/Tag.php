@@ -13,4 +13,9 @@ class Tag extends GuardianTag
     {
         return $this->belongsToMany(Article::class);
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'name';
+    }
 }

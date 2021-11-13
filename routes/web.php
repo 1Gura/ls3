@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactsController;
-use App\Http\Controllers\TestController;
-use App\Http\Middleware\CustomAuthenticate;
+use App\Http\Controllers\TagsController;
 use App\Models\Contact;
 use App\PriceFormatter;
 use App\Service\OtherPriceFormatter;
@@ -41,6 +40,7 @@ Route::get('/admin/feedback', function () {
     return view('admin.feedback', compact('feedbackList'));
 })->name('feedback');
 
+Route::get('/articles/tags/{tag}', [TagsController::class, 'index'])->name('articles.tags');
 
 
 
