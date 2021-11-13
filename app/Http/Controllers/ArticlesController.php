@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArticleRequest;
 use App\Models\Article;
+use App\Models\Tag;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\RedirectResponse;
@@ -14,7 +15,7 @@ class ArticlesController extends Controller
 {
     public function index(): View
     {
-        $articles = Article::latest()->get();
+        $articles = Article::with('tags')->latest()->get();
         return view('articles.index', compact('articles'));
     }
 
@@ -32,6 +33,9 @@ class ArticlesController extends Controller
     {
         $params = $request->validated();
         $article->update($params);
+//        $articleTags = $article->tags->keyBy('name');
+//        $tagsRequest = $request;
+//        dd($tagsRequest);
         session()->flash('flash_message', 'Вы успешно отредактировали статью');
         return redirect(route('articles.index'));
     }

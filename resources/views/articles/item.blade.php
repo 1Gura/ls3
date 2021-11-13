@@ -13,4 +13,5 @@
     </form>
     <p>{{$article->body}}</p>
     <p>Дата публикации: {{$article->created_at->format('d.m.Y')}}</p>
+    @include('articles.tags', ['tags'=>$article->tags])
 </li>
