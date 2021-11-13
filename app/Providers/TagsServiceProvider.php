@@ -26,7 +26,7 @@ class TagsServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('layout.sidebar', function (View $view) {
-            $view->with('tagsCloud', Tag::has('articles')->all());
+            $view->with('tagsCloud', Tag::tagsCloud());
         });
     }
 }

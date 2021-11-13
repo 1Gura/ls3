@@ -18,4 +18,9 @@ class Tag extends GuardianTag
     {
         return 'name';
     }
+
+    public static function tagsCloud()
+    {
+        return (new static)->has('articles')->get();
+    }
 }
