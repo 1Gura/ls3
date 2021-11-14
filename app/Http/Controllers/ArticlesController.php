@@ -34,10 +34,7 @@ class ArticlesController extends Controller
     {
         $params = $request->validated();
         $article->update($params);
-        $tagsRequest = collect(explode(',', $request->tags))->keyBy(function ($item) {
-            return $item;
-        });
-        $tagsSynchronizer->sync($tagsRequest, $article);
+        $tagsSynchronizer->sync($request->tags, $article);
         session()->flash('flash_message', 'Вы успешно отредактировали статью');
         return redirect(route('articles.index'));
     }
@@ -58,10 +55,7 @@ class ArticlesController extends Controller
     {
         $params = $request->validated();
         $article = Article::create($params);
-        $tagsRequest = collect(explode(',', $request->tags))->keyBy(function ($item) {
-            return $item;
-        });
-        $tagsSynchronizer->sync($tagsRequest, $article);
+        $tagsSynchronizer->sync($request->tags, $article);
         session()->flash('flash_message', 'Вы успешно создали статью');
         return redirect(route('articles.index'));
     }

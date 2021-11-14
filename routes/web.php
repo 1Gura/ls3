@@ -3,9 +3,6 @@
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\TagsController;
 use App\Models\Contact;
-use App\PriceFormatter;
-use App\Service\OtherPriceFormatter;
-use App\Service\PushAll;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
 

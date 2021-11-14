@@ -26,7 +26,10 @@ class StoreArticleRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-            'completed' => $this->completed ? 1 : 0
+            'completed' => $this->completed ? 1 : 0,
+            'tags' => collect(explode(',', $this->tags))->keyBy(function ($item) {
+                return $item;
+            })
         ]);
     }
 
