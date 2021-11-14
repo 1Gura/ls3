@@ -63,7 +63,11 @@ class ArticlesController extends Controller
     public function store(StoreArticleRequest $request): Redirector|Application|RedirectResponse
     {
         $params = $request->validated();
-        Article::create($params);
+        $article = Article::create($params);
+        $tagsRequest = collect(explode(',', $request->tags))->keyBy(function ($item) {
+            return $item;
+        });
+
         session()->flash('flash_message', 'Вы успешно создали статью');
         return redirect(route('articles.index'));
     }
