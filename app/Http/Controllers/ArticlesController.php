@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticleRequest;
 use App\Models\Article;
 use App\Models\Tag;
+use App\Service\TagsSynchronizer;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\RedirectResponse;
@@ -29,21 +30,14 @@ class ArticlesController extends Controller
         return view('articles.edit', compact('article'));
     }
 
-    public function update(Article $article, StoreArticleRequest $request): Redirector|Application|RedirectResponse
+    public function update(Article $article, StoreArticleRequest $request, TagsSynchronizer $tagsSynchronizer): Redirector|Application|RedirectResponse
     {
         $params = $request->validated();
         $article->update($params);
-        $articleTags = $article->tags->keyBy('name');
         $tagsRequest = collect(explode(',', $request->tags))->keyBy(function ($item) {
             return $item;
         });
-        $syncIds = $articleTags->intersectByKeys($tagsRequest)->pluck('id')->toArray();
-        $tagsToAttach = $tagsRequest->diffKeys($articleTags);
-        foreach ($tagsToAttach as $tag) {
-            $tag = Tag::firstOrCreate(['name' => $tag]);
-            $syncIds[] = $tag->id;
-        }
-        $article->tags()->sync($syncIds);
+        $tagsSynchronizer->sync($tagsRequest, $article);
         session()->flash('flash_message', 'Вы успешно отредактировали статью');
         return redirect(route('articles.index'));
     }
@@ -60,14 +54,14 @@ class ArticlesController extends Controller
         return view('articles.create');
     }
 
-    public function store(StoreArticleRequest $request): Redirector|Application|RedirectResponse
+    public function store(StoreArticleRequest $request, TagsSynchronizer $tagsSynchronizer): Redirector|Application|RedirectResponse
     {
         $params = $request->validated();
         $article = Article::create($params);
         $tagsRequest = collect(explode(',', $request->tags))->keyBy(function ($item) {
             return $item;
         });
-
+        $tagsSynchronizer->sync($tagsRequest, $article);
         session()->flash('flash_message', 'Вы успешно создали статью');
         return redirect(route('articles.index'));
     }

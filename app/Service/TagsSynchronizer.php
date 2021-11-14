@@ -6,10 +6,13 @@ namespace App\Service;
 
 use App\Models\Article;
 use App\Models\Tag;
+use Ramsey\Collection\Collection;
 
 class TagsSynchronizer
 {
-    public function sync(Tag $tagsRequest, Article $article)
+
+
+    public function sync($tagsRequest, Article $article)
     {
         $articleTags = $article->tags->keyBy('name');
         $syncIds = $articleTags->intersectByKeys($tagsRequest)->pluck('id')->toArray();
