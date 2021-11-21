@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Service\PushAll;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(PushAll::class, function () {
+            return new PushAll(config('services.pushall.key'));
+        });
     }
 
     /**
@@ -23,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
 }

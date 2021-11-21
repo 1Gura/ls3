@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\TagsController;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
@@ -36,31 +37,7 @@ Route::get('/admin/feedback', function () {
     return view('admin.feedback', compact('feedbackList'));
 })->name('feedback');
 
-
-
-//Route::get('/', [ArticlesController::class, 'index'])->name('main.page');
-
-//
-//
-//Route::post('/articles', [ArticlesController::class, 'store'])->name('articles.store');
-//Route::get('/articles/create', [ArticlesController::class, 'create'])->name('articles.create');
-//Route::get('/articles/feedback', [ArticlesController::class, 'feedback'])->name('articles.feedback');
-//Route::get('/articles/{article:slug}', [ArticlesController::class, 'show'])->name('articles.show');
-//Route::get('/articles/{article:slug}/edit', [ArticlesController::class, 'edit'])->name('articles.edit');
-//Route::patch('/articles/{article:slug}', [ArticlesController::class, 'update'])->name('articles.update');
-//Route::delete('/articles/{article:slug}', [ArticlesController::class, 'delete'])->name('articles.delete');
-//Route::get('/admin/', function () {
-//    return view('admin.index');
-//})->name('admin');
-//Route::get('/admin/feedback', function () {
-//    $feedbackList = Contact::latest()->get();
-//    return view('admin.feedback', compact('feedbackList'));
-//})->name('feedback');
-//Route::get('/contacts', function () {
-//    return view('contacts.index');
-//})->name('contacts.index');
-//Route::post('/contacts', [ContactsController::class, 'store'])->name('contacts.store');
-
+Route::get('/articles/tags/{tag}', [TagsController::class, 'index'])->name('articles.tags');
 
 
 

@@ -40,6 +40,15 @@
             >{{old('body', isset($article) ? $article->body : '')}}</textarea>
         </div>
         <div class="mb-3">
+            <label for="inputTags" class="form-label">Теги</label>
+            <input
+                class="form-control"
+                id="inputTags"
+                name="tags"
+                value="{{old('tags', isset($article) ? $article->tags->pluck('name')->implode(',') : '')}}"
+            >
+        </div>
+        <div class="mb-3">
             <label for="completed" class="form-label">Опубликовано</label>
             <input
                 type="checkbox"
@@ -52,7 +61,7 @@
         </div>
         <button type="submit" class="btn btn-primary">
             @if(isset($article))
-                Редиктировать
+                Редактировать
             @else
                 Создать
             @endif

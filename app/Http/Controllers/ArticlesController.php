@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArticleRequest;
 use App\Models\Article;
+use App\Models\Tag;
+use App\Service\TagsSynchronizer;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
@@ -13,7 +16,7 @@ class ArticlesController extends Controller
 {
     public function index(): View
     {
-        $articles = Article::latest()->get();
+        $articles = Article::with('tags')->latest()->get();
         return view('articles.index', compact('articles'));
     }
 
@@ -27,10 +30,11 @@ class ArticlesController extends Controller
         return view('articles.edit', compact('article'));
     }
 
-    public function update(Article $article, StoreArticleRequest $request): Redirector|Application|RedirectResponse
+    public function update(Article $article, StoreArticleRequest $request, TagsSynchronizer $tagsSynchronizer): Redirector|Application|RedirectResponse
     {
         $params = $request->validated();
         $article->update($params);
+        $tagsSynchronizer->sync($request->tags, $article);
         session()->flash('flash_message', 'Вы успешно отредактировали статью');
         return redirect(route('articles.index'));
     }
@@ -47,10 +51,11 @@ class ArticlesController extends Controller
         return view('articles.create');
     }
 
-    public function store(StoreArticleRequest $request): Redirector|Application|RedirectResponse
+    public function store(StoreArticleRequest $request, TagsSynchronizer $tagsSynchronizer): Redirector|Application|RedirectResponse
     {
         $params = $request->validated();
-        Article::create($params);
+        $article = Article::create($params);
+        $tagsSynchronizer->sync($request->tags, $article);
         session()->flash('flash_message', 'Вы успешно создали статью');
         return redirect(route('articles.index'));
     }

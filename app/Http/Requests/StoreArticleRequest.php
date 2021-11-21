@@ -22,16 +22,14 @@ class StoreArticleRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
 
-    public function prepareForValidation(): array
+    public function prepareForValidation(): void
     {
         $this->merge([
-            'completed' => $this->completed ? 1 : 0
+            'completed' => $this->completed ? 1 : 0,
+            'tags' => collect(explode(',', $this->tags))->keyBy(function ($item) {
+                return $item;
+            })
         ]);
     }
 
@@ -42,6 +40,7 @@ class StoreArticleRequest extends FormRequest
             'title' => ['required', 'min:5', 'max:100'],
             'description' => ['required', 'max:255'],
             'body' => ['required'],
+            'tags'=> [],
             'completed' => [],
         ];
     }
