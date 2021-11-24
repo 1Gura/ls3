@@ -16,7 +16,33 @@
                         <path d="M21 21l-5.2-5.2"/>
                     </svg>
                 </a>
-                <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+                <ul class="navbar-nav ml-auto">
+                    <!-- Authentication Links -->
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                        @endif
+
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                <input type="submit" value="Выйти">
+                                @csrf
+                            </form>
+                        </li>
+                    @endguest
+                </ul>
             </div>
         </div>
     </header>

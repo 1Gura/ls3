@@ -22,12 +22,14 @@
 </head>
 <body>
 @include('layout.nav')
-<main class="container">
+<main class="container wrapper">
     <div class="row">
         <div class="content">
             @yield('content')
         </div>
-        @include('layout.sidebar')
+        @section('sidebar')
+            @include('layout.sidebar')
+        @show
     </div>
 </main>
 @include('layout.footer')

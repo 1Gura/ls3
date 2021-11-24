@@ -14,6 +14,7 @@ class Guardian extends Model
         'description',
         'body',
         'completed',
-        'slug'
+        'slug',
+        'user_id'
     ];
 }

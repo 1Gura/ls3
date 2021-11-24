@@ -3,7 +3,6 @@
         <a href="{{route('articles.show', $article)}}">
             {{$article->title}}
         </a>
-
     </h3>
     <a href="{{route('articles.edit', $article)}}">Редактировать</a>
     <form method="POST" action="{{route('articles.destroy', $article)}}">

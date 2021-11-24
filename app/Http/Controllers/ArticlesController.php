@@ -14,19 +14,33 @@ use Illuminate\View\View;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(): View
     {
-        $articles = Article::with('tags')->latest()->get();
+        $articles = [];
+        try {
+            $articles = Article::where('user_id', auth()->id())->with('tags')->latest()->get();
+        } catch (e) {
+
+        }
+
         return view('articles.index', compact('articles'));
     }
 
     public function show(Article $article): View
     {
+        $this->authorize('update', $article);
         return view('articles.show', compact('article'));
     }
 
+
     public function edit(Article $article): View
     {
+        $this->authorize('update', $article);
         return view('articles.edit', compact('article'));
     }
 
@@ -54,6 +68,7 @@ class ArticlesController extends Controller
     public function store(StoreArticleRequest $request, TagsSynchronizer $tagsSynchronizer): Redirector|Application|RedirectResponse
     {
         $params = $request->validated();
+        $params['user_id'] = auth()->id();
         $article = Article::create($params);
         $tagsSynchronizer->sync($request->tags, $article);
         session()->flash('flash_message', 'Вы успешно создали статью');
